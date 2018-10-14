@@ -10,18 +10,21 @@ let count = 0;
 
 client.setEncoding('utf8');
 
-client.connect(port, () => {
+client.connect(port, () =>
+{
     console.log('Connected');
     client.write(reqRemote);
 });
 
-client.on('data', (data) => {
+client.on('data', (data) =>
+{
     console.log(data);
-    if (data === badResp) {
-        client.destroy();
-    } else if (data === goodResp) {
+    if (data === badResp)  { client.destroy(); }
+    else if (data === goodResp)
+    {
         count++;
-        switch (count) {
+        switch (count)
+        {
             case 1:
                 sendCOPY();
                 break;
@@ -37,17 +40,13 @@ client.on('data', (data) => {
     }
 });
 
-function sendCOPY() {
-    client.write('COPY /Users/ivan/Desktop/5сем/пскп/cwp-04/original.txt /Users/ivan/Desktop/5сем/пскп/cwp-04/copy.txt');
-}
+function sendCOPY()
+{ client.write('COPY /home/vladislav/WebstormProjects/cwp-04/original.txt /home/vladislav/WebstormProjects/cwp-04/copy.txt'); }
 
-function sendENCODE() {
-    client.write('ENCODE /Users/ivan/Desktop/5сем/пскп/cwp-04/original.txt /Users/ivan/Desktop/5сем/пскп/cwp-04/encode.txt 123');
-}
+function sendENCODE()
+{ client.write('ENCODE /home/vladislav/WebstormProjects/cwp-04original.txt /home/vladislav/WebstormProjects/cwp-04/encode.txt 123'); }
 
-function sendDECODE() {
-    client.write('DECODE /Users/ivan/Desktop/5сем/пскп/cwp-04/encode.txt /Users/ivan/Desktop/5сем/пскп/cwp-04/decode.txt 123');
-}
-client.on('close', function() {
-    console.log('Connection closed');
-});
+function sendDECODE()
+{ client.write('DECODE /home/vladislav/WebstormProjects/cwp-04/encode.txt /home/vladislav/WebstormProjects/cwp-04/decode.txt 123'); }
+
+client.on('close', function() { console.log('Connection closed'); });
